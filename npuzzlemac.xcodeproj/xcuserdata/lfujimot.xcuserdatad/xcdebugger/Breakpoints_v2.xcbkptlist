@@ -10,27 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "npuzzlemac/Engine.swift"
-            timestampString = "585508940.582451"
+            timestampString = "585603516.744967"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
-            landmarkName = "needToBeAddedToTerminalNodes(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "npuzzlemac/Engine.swift"
-            timestampString = "585508940.5828789"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
             landmarkName = "findChildren(node:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "npuzzlemac/Engine.swift"
-            timestampString = "585508940.583194"
+            timestampString = "585603516.745086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
             landmarkName = "findChildren(node:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,45 +42,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "npuzzlemac/Engine.swift"
-            timestampString = "585508940.583496"
+            timestampString = "585603516.745209"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "160"
-            endingLineNumber = "160"
-            landmarkName = "needToBeAddedToTerminalNodes(_:)"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "findGoal()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "npuzzlemac.Engine.needToBeAddedToTerminalNodes(npuzzlemac.Node) -&gt; Swift.Bool"
-                  moduleName = "npuzzlemac"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///sgoinfre/goinfre/Perso/lfujimot/IOS/npuzzlemac/npuzzlemac/Engine.swift"
-                  timestampString = "585505193.439013"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "138"
-                  endingLineNumber = "138"
-                  offsetFromSymbolStart = "653">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "npuzzlemac.Engine.needToBeAddedToTerminalNodes(npuzzlemac.Node) -&gt; Swift.Bool"
-                  moduleName = "npuzzlemac"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///sgoinfre/goinfre/Perso/lfujimot/IOS/npuzzlemac/npuzzlemac/Engine.swift"
-                  timestampString = "585505193.441866"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "138"
-                  endingLineNumber = "138"
-                  offsetFromSymbolStart = "670">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

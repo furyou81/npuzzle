@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		FCD296DD22E70C3500C7717F /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCD296DC22E70C3500C7717F /* PriorityQueue.swift */; };
 		FCEBEC2322E5C1C300340079 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEBEC2222E5C1C300340079 /* main.swift */; };
 		FCEBEC2A22E5C1FB00340079 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEBEC2922E5C1FB00340079 /* Node.swift */; };
 		FCEBEC2C22E5C4A600340079 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEBEC2B22E5C4A600340079 /* Engine.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		FCD296DC22E70C3500C7717F /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		FCEBEC1F22E5C1C300340079 /* npuzzlemac */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = npuzzlemac; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCEBEC2222E5C1C300340079 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		FCEBEC2922E5C1FB00340079 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				FCEBEC2222E5C1C300340079 /* main.swift */,
+				FCD296DC22E70C3500C7717F /* PriorityQueue.swift */,
 				FCEBEC2B22E5C4A600340079 /* Engine.swift */,
 				FCEBEC2922E5C1FB00340079 /* Node.swift */,
 			);
@@ -127,6 +130,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FCEBEC2322E5C1C300340079 /* main.swift in Sources */,
+				FCD296DD22E70C3500C7717F /* PriorityQueue.swift in Sources */,
 				FCEBEC2C22E5C4A600340079 /* Engine.swift in Sources */,
 				FCEBEC2A22E5C1FB00340079 /* Node.swift in Sources */,
 			);

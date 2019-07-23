@@ -14,6 +14,7 @@ class Node {
     var scoreH: Int = 0
     var children: [Node] = []
     var state: [[Int?]] = [[]]
+    var flatState: [Int?] = []
     var hash: String = ""
     
     var scoreF: Int {
@@ -33,6 +34,9 @@ class Node {
                 }
             }
         }
+        self.flatState = state.flatMap({
+            $0
+        })
     }
     
     func addChild(_ child: Node) {
