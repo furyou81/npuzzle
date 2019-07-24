@@ -135,12 +135,17 @@ let mockInitialState4 = [
 
 
 
-
+let mock84 = [
+    [3, 13, 4, 5],
+    [14, 8, 0, 6],
+    [2, 15, 7, 9],
+    [12, 10, 11, 1]
+]
 
 
 let startTime = CFAbsoluteTimeGetCurrent()
 
-let rootNode = Node(state: mockInitialState)
+let rootNode = Node(state: mock84, np: (0, 0))
 
 let engine = Engine(rootNode: rootNode, heuristic: .manhattan)
 engine.execute()

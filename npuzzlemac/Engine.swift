@@ -20,7 +20,7 @@ class Engine {
     var rootNode: Node
     var goalState: Node?
     var visitedStates: [String: Node] = [:]
-    var terminalNodes: PrioriryQueue = PrioriryQueue()
+    var terminalNodes: PriorityQueue<Node> = PriorityQueue<Node>(ascending: true)
     var isFound: Bool = false
     var heuristic: Strategy
     var puzzleSize: Int
@@ -35,44 +35,44 @@ class Engine {
     }
     
     func findGoal() {
-        var goal: [[Int?]] = self.rootNode.state
-        let optionalNumbers: [Int?] = goal.flatMap({
-           $0
-        })
-        var numbers: [Int] = optionalNumbers.flatMap({
+        var goal: [[Int]] = self.rootNode.state
+        var numbers: [Int] = goal.flatMap({
             $0
+        }).filter({
+            $0 != 0
         })
+        
        
         numbers = numbers.sorted(by: {$0 < $1})
-        let xmax = goal[0].count - 1
-        let ymax = goal.count - 1
+        let xmax = self.puzzleSize - 1
+        let ymax = self.puzzleSize - 1
         
         var numberIndex = 0
         var x = 0
             for y in 0...(ymax / 2) {
                     for xx in (x)...(xmax - x) {
-                        goal[y][xx] = numberIndex < numbers.count ? numbers[numberIndex] : nil
+                        goal[y][xx] = numberIndex < numbers.count ? numbers[numberIndex] : 0
                         numberIndex = numberIndex + 1
                     }
                 if (y + 1) <= (ymax - y - 1) {
                     for yy in (y + 1)...(ymax - y - 1) {
-                        goal[yy][xmax - x] = numberIndex < numbers.count ? numbers[numberIndex] : nil
+                        goal[yy][xmax - x] = numberIndex < numbers.count ? numbers[numberIndex] : 0
                         numberIndex = numberIndex + 1
                     }
                 }
                     for xx in (x...(xmax - x)).reversed() {
-                        goal[ymax - y][xx] = numberIndex < numbers.count ? numbers[numberIndex] : nil
+                        goal[ymax - y][xx] = numberIndex < numbers.count ? numbers[numberIndex] : 0
                         numberIndex = numberIndex + 1
                     }
                 if (y + 1) <= (ymax - y - 1) {
                     for yy in ((y + 1 )...(ymax - y - 1)).reversed() {
-                        goal[yy][x] = numberIndex < numbers.count ? numbers[numberIndex] : nil
+                        goal[yy][x] = numberIndex < numbers.count ? numbers[numberIndex] : 0
                         numberIndex = numberIndex + 1
                     }
                 }
                 x = x + 1
             }
-        self.goalState = Node(state: goal)
+        self.goalState = Node(state: goal, np: (0, 0))
         print("GOAL")
         self.goalState?.draw()
     }
@@ -84,14 +84,13 @@ class Engine {
         
         openList.enqueue(node: rootNode)
         
-        
         while !openList.isEmpty {
             if closedList.count % 1000 == 0 {
                 print("CLOSED: ", closedList.count)
             }
             let current = openList.dequeue()
             
-            let children = getChildren(current: current!);
+            let children = current!.findPossibleState();
             
             for child in children {
                 
@@ -111,71 +110,37 @@ class Engine {
                     return
                 }
                 
+                let old = manhattan(nilPos: child.nilPosition, nb: child.state[(current?.nilPosition.0)!][(current?.nilPosition.1)!], flatState: (current?.flatState)!)
+                let new = manhattan(nilPos: current!.nilPosition, nb: child.state[(current?.nilPosition.0)!][(current?.nilPosition.1)!], flatState: (child.flatState))
+                child.scoreH = (current?.scoreH)! + (new - old)
+                child.scoreG = (current?.scoreG)! + 1;
                 
-                let c = applyHeuristic(node: child, heuristic: .manhattan);
-                c.scoreG = (current?.scoreG)! + 1;
-                
-                if (openList.queue.contains(where: { $0 == c && $0.scoreF < c.scoreF })) {
+                if (openList.queue.contains(where: { $0 == child && $0.scoreF < child.scoreF })) {
                     continue ;
                 }
                 
-                if (closedList[c.hash] != nil) {
-                    if (c.scoreF > (closedList[c.hash]?.scoreF)!) {
+                if (closedList[child.hash] != nil) {
+                    if (child.scoreF > (closedList[child.hash]?.scoreF)!) {
                         continue
                     }
                 }
                 
-                openList.enqueue(node: c);
+                openList.enqueue(node: child);
             }
             closedList[(current?.hash)!] = current;
-            
         }
-        
     }
     
-    func getChildren(current: Node) -> [Node] {
-        var children: [Node] = [];
-        
-        let states = current.findPossibleState()
-        for child in states {
-            let newNode = Node(state: child, parent: current)
-            children.append(newNode)
-        }
-        return children
-    }
-    
-    
-    
-    func resolve() {
-//        findChildren(node: rootNode)
-            terminalNodes.enqueue(node: rootNode)
-        
-        while !isFound && terminalNodes.count > 0 {
-//            print("QUEUE: ", terminalNodes.queueInt)
-            if visitedStates.count % 1000 == 0 {
-                print("VISITED: ", visitedStates.count)
-            }
-            if let nextToExplore: Node = terminalNodes.dequeue() {
-//                print("_______________________________________")
-//                print("NEXT TO EXPLORE", "F", nextToExplore.scoreF, "G", nextToExplore.scoreG, "H", nextToExplore.scoreH)
-//                nextToExplore.draw()
-//                print("_______________________________________")
-                if isVisited(state: nextToExplore.state) {
-//                    print("VVVVVVVVVVV_________________________________________________________")
-                    return
-                }
-                visitedStates[nextToExplore.hash] = nextToExplore
-//                print("QUEUE AFTER REMOVE: ", terminalNodes.queueInt)
-//                print("Choosen: ", nextToExplore.hash, "score: ", nextToExplore.scoreF);
-//                print("count: ", terminalNodes.count)
-//                print("NEXT", nextToExplore.draw(), nextToExplore.scoreF, terminalNodes.count, isFound)
-                findChildren(node: nextToExplore)
-            }
-        }
-        
-        
-        
-    }
+//    func getChildren(current: Node) -> [Node] {
+//        var children: [Node] = [];
+//
+//        let states = current.findPossibleState()
+//        for child in states {
+//            let newNode = Node(state: child, parent: current)
+//            children.append(newNode)
+//        }
+//        return children
+//    }
     
     func applyHeuristic(node: Node, heuristic: Strategy) -> Node {
         switch heuristic {
@@ -191,9 +156,9 @@ class Engine {
     
     func misplacedTilesHeuristic(node: Node) -> Int{
         var misplacedTiles = 0
-        for y in 0...(node.state.count - 1) {
-            for x in 0...(node.state[0].count - 1) {
-                if node.state[y][x] != nil && node.state[y][x] != self.goalState?.state[y][x] {
+        for y in 0...(self.puzzleSize - 1) {
+            for x in 0...(self.puzzleSize - 1) {
+                if node.state[y][x] != 0 && node.state[y][x] != self.goalState?.state[y][x] {
                     misplacedTiles = misplacedTiles + 1
                 }
             }
@@ -203,9 +168,9 @@ class Engine {
     
     func manhattanHeuristic(node: Node) -> Int{
         var manhattanDistances = 0
-        for y in 0...(node.state.count - 1) {
-            for x in 0...(node.state[0].count - 1) {
-                if node.state[y][x] != nil && node.state[y][x] != self.goalState?.state[y][x] {
+        for y in 0...(self.puzzleSize - 1) {
+            for x in 0...(self.puzzleSize - 1) {
+                if node.state[y][x] != 0 && node.state[y][x] != self.goalState?.state[y][x] {
                 let currentIndex = node.flatState.index(where: {$0 == node.state[y][x]})
                 let goalIndex = self.goalState?.flatState.index(where: {$0 == node.state[y][x]})
                 let h = abs(currentIndex! / puzzleSize - goalIndex! / puzzleSize)
@@ -217,57 +182,20 @@ class Engine {
         return manhattanDistances
     }
     
-    func findChildren(node: Node) {
-        if node == goalState! {
-            self.isFound = true
-//            print("FOUND", node.scoreF, node.scoreH)
-            var n = node
-            var nb = 0;
-            while n.parent != nil {
-//                n.draw()
-                n = n.parent!
-                nb = nb + 1
-            }
-            
-//            n.draw()
-//            print("STEP: ", nb)
-//            print("VISITED: ", visitedStates.count)
-            return
+    func manhattan(nilPos: (Int, Int), nb: Int, flatState: [Int]) -> Int{
+        if nb != 0 && nb != self.goalState?.state[nilPos.0][nilPos.1] {
+            let currentIndex = flatState.index(where: {$0 == nb})
+            let goalIndex = self.goalState?.flatState.index(where: {$0 == nb})
+            let h = abs(currentIndex! / puzzleSize - goalIndex! / puzzleSize)
+            let w = abs(currentIndex! % puzzleSize - goalIndex! % puzzleSize)
+            return  h + w
+        } else {
+            return 0
         }
-//        print("PARENT", node.scoreF, node.scoreG, node.scoreH)
-//        node.draw()
-//        visitedStates[node.hash] = node
-        let children = node.findPossibleState()
-        for child in children {
-            if !isVisited(state: child) {
-                var newNode = Node(state: child, parent: node)
-                
-//                newNode.draw()
-                newNode = applyHeuristic(node: newNode, heuristic: self.heuristic)
-//                print("CHILD", newNode.scoreF, newNode.scoreG, newNode.scoreH)
-                if needToBeAddedToTerminalNodes(newNode) {
-                    terminalNodes.enqueue(node: newNode)
-                }
-            }
-        }
-//        print("NODE", terminalNodes.count)
-////        terminalNodes = terminalNodes.filter({
-////            $0 != node
-////        })
-//        print("AFTER", terminalNodes.count)
-//        print("Queue Int: ", self.terminalNodes.queueInt);
-//        print("___________________________________________")
     }
     
-    func needToBeAddedToTerminalNodes(_ newNode: Node) -> Bool {
-        let isInTerminalNodes = terminalNodes.queue.contains(where: {
-            $0 == newNode
-        })
-        return !isInTerminalNodes
-    }
-    
-    func isVisited(state: [[Int?]]) -> Bool {
-        let n = Node(state: state)
+    func isVisited(state: [[Int]]) -> Bool {
+        let n = Node(state: state, np: (0, 0))
         return visitedStates[n.hash] != nil
     }
     

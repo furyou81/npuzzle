@@ -8,78 +8,96 @@
 
 import Foundation
 
-class Node {
+class Node: Comparable {
+    static func <(lhs: Node, rhs: Node) -> Bool {
+        return lhs.scoreF <  rhs.scoreF
+    }
+    
     var parent: Node?
     var scoreG: Int = 0
     var scoreH: Int = 0
     var children: [Node] = []
-    var state: [[Int?]] = [[]]
-    var flatState: [Int?] = []
+    var state: [[Int]] = [[]]
+    var flatState: [Int] = []
     var hash: String = ""
+    var nilPosition: (Int, Int)
     
     var scoreF: Int {
         return scoreG + scoreH
     }
     
-    init(state: [[Int?]], parent: Node? = nil) {
+    init(state: [[Int]], np: (Int, Int), parent: Node? = nil) {
         self.parent = parent
         self.scoreG = parent == nil ? 0 : parent!.scoreG + 1
         self.state = state
         for row in state {
             for column in row {
-                if let char = column {
-                    hash = hash + String(describing: char)
-                } else {
-                    hash = hash + "_"
-                }
+                hash = hash + String(column)
             }
         }
         self.flatState = state.flatMap({
             $0
         })
+        if (parent == nil) {
+            self.nilPosition = Node.findNilPosition(s: state)!
+        } else {
+            nilPosition = np
+        }
     }
     
     func addChild(_ child: Node) {
         self.children.append(child)
     }
     
-    func findPossibleState() -> [[[Int?]]] {
-        var possibleStates: [[[Int?]]] = [];
-        let nilPosition = findNilPosition()
+    func findPossibleState() -> [Node] {
+        var possibleStates: [Node] = [];
+//        let nilPosition = findNilPosition()
         let directions = findDirections(from: nilPosition)
         
-        if let pos = nilPosition {
+//        if let pos = nilPosition {
             for direction in directions {
-                let newState = swap(from: pos, to: direction)
+//                let newState = Node(state: swap(from: self.nilPosition, to: direction), parent: self)
+                var np: (Int, Int)
+                switch direction {
+                case Direction.down:
+                    np = (self.nilPosition.0 + 1, self.nilPosition.1)
+                case Direction.up:
+                    np = (self.nilPosition.0 - 1, self.nilPosition.1)
+                case Direction.left:
+                    np = (self.nilPosition.0, self.nilPosition.1 - 1)
+                case Direction.right:
+                    np = (self.nilPosition.0, self.nilPosition.1 + 1)
+                }
+                let newState = Node(state: swap(from: self.nilPosition, to: direction), np: np, parent: self)
                 possibleStates.append(newState)
             }
-        }
+//        }
         return possibleStates;
     }
     
-    private func swap(from position: (Int, Int), to direction: Direction) -> [[Int?]] {
-        var newState: [[Int?]] = self.state
+    private func swap(from position: (Int, Int), to direction: Direction) -> [[Int]] {
+        var newState: [[Int]] = self.state
         switch direction {
         case .down:
             newState[position.0][position.1] = newState[position.0 + 1][position.1]
-            newState[position.0 + 1][position.1] = nil
+            newState[position.0 + 1][position.1] = 0
         case .left:
             newState[position.0][position.1] = newState[position.0][position.1 - 1]
-            newState[position.0][position.1 - 1] = nil
+            newState[position.0][position.1 - 1] = 0
         case .right:
             newState[position.0][position.1] = newState[position.0][position.1 + 1]
-            newState[position.0][position.1 + 1] = nil
+            newState[position.0][position.1 + 1] = 0
         case .up:
             newState[position.0][position.1] = newState[position.0 - 1][position.1]
-            newState[position.0 - 1][position.1] = nil
+            newState[position.0 - 1][position.1] = 0
         }
         return newState;
     }
     
-    private func findNilPosition() -> (Int, Int)? {
-        for (i, row) in self.state.enumerated() {
+    static func findNilPosition(s: [[Int]]) -> (Int, Int)? {
+        for (i, row) in s.enumerated() {
             for (j, column) in row.enumerated() {
-                if column == nil {
+                if column == 0 {
                     return (i, j)
                 }
             }
@@ -119,11 +137,7 @@ class Node {
         var drawing: String = ""
         for row in state {
             for column in row {
-                if let char = column {
-                    drawing = drawing + String(describing: char) + " "
-                } else {
-                    drawing = drawing + "_" + " "
-                }
+                drawing = drawing + String(column) + " "
             }
             drawing = drawing + "\n"
         }
