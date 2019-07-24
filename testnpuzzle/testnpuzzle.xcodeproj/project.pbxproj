@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		86A72D5022E8916F00F7B452 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A72D4F22E8916F00F7B452 /* main.swift */; };
-		86A72D5722E891DE00F7B452 /* SwiftPriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A72D5622E891DE00F7B452 /* SwiftPriorityQueue.swift */; };
 		86A72D5922E892D800F7B452 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A72D5822E892D800F7B452 /* Node.swift */; };
+		86A72D5B22E8EF4400F7B452 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A72D5A22E8EF4400F7B452 /* PriorityQueue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -27,8 +27,8 @@
 /* Begin PBXFileReference section */
 		86A72D4C22E8916F00F7B452 /* testnpuzzle */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = testnpuzzle; sourceTree = BUILT_PRODUCTS_DIR; };
 		86A72D4F22E8916F00F7B452 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
-		86A72D5622E891DE00F7B452 /* SwiftPriorityQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftPriorityQueue.swift; sourceTree = "<group>"; };
 		86A72D5822E892D800F7B452 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		86A72D5A22E8EF4400F7B452 /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,9 +61,9 @@
 		86A72D4E22E8916F00F7B452 /* testnpuzzle */ = {
 			isa = PBXGroup;
 			children = (
-				86A72D5622E891DE00F7B452 /* SwiftPriorityQueue.swift */,
 				86A72D4F22E8916F00F7B452 /* main.swift */,
 				86A72D5822E892D800F7B452 /* Node.swift */,
+				86A72D5A22E8EF4400F7B452 /* PriorityQueue.swift */,
 			);
 			path = testnpuzzle;
 			sourceTree = "<group>";
@@ -128,7 +128,7 @@
 			files = (
 				86A72D5922E892D800F7B452 /* Node.swift in Sources */,
 				86A72D5022E8916F00F7B452 /* main.swift in Sources */,
-				86A72D5722E891DE00F7B452 /* SwiftPriorityQueue.swift in Sources */,
+				86A72D5B22E8EF4400F7B452 /* PriorityQueue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

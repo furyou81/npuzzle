@@ -8,7 +8,7 @@
 
 import Foundation
 
-let SIZE = 4;
+
 
 var startState = [
     [3, 13, 4, 5],
@@ -35,12 +35,12 @@ var goalState = [
     [10, 9, 8, 7]
 ]
 
-//var goal = Node(state: startState, parent: nil, zeroRow: 2, zeroCol: 1, cost: 0, heuristic: 0)
+let SIZE = startState.count - 1;
 
-func findCoordinates(_ number: Int) -> (row: Int, col: Int)? {
-    for i in 0..<SIZE {
-        for j in 0..<SIZE {
-            if goalState[i][j] == number {
+func findCoordinates(_ number: Int, in state: [[Int]]) -> (row: Int, col: Int)? {
+    for i in 0...SIZE {
+        for j in 0...SIZE {
+            if state[i][j] == number {
                 return (i, j)
             }
         }
@@ -50,12 +50,12 @@ func findCoordinates(_ number: Int) -> (row: Int, col: Int)? {
 
 func manhattan(_ state: [[Int]]) -> Int {
     var distance = 0
-    for i in 0...state.count - 1 {
-        for j in 0...state[i].count - 1 {
+    for i in 0...SIZE {
+        for j in 0...SIZE {
             if (state[i][j] == 0) {
                 continue
             }
-            let (row, col) = findCoordinates(state[i][j])!
+            let (row, col) = findCoordinates(state[i][j], in: goalState)!
             let absRow = abs(i - row)
             let absCol = abs(j - col)
             distance += (absRow + absCol)
@@ -65,82 +65,71 @@ func manhattan(_ state: [[Int]]) -> Int {
     return distance;
 }
 
+func childFactory(state: inout [[Int]], parent node: Node, _ x: Int, _ y: Int, _ newX: Int, _ newY: Int) -> Node{
+    // swap new position
+    state[x][y] = state[newX][newY]
+    state[newX][newY] = 0
+    
+    // create child
+    let child = Node(state: state, parent: node, zeroRow: newX, zeroCol: newY, cost: node.cost + 1, heuristic: manhattan(state))
+    return child
+}
+
 func getChildren(_ node: Node) -> [Node] {
     var children:[Node] = []
     
     let x = node.zeroRow
     let y = node.zeroCol
     
+    var copyState: [[Int]];
+    
     // Check if we can go up
     if (x > 0) {
-        var copyState = node.state;
+        copyState = node.state;
         let newX = x - 1
         let newY = y
-
-        // swap new position
-        copyState[x][y] = copyState[newX][newY]
-        copyState[newX][newY] = 0
-        
-        // create child
-        let child = Node(state: copyState, parent: node, zeroRow: newX, zeroCol: newY, cost: node.cost + 1, heuristic: manhattan(copyState))
-        children.append(child)
+        children.append(childFactory(state: &copyState, parent: node, x, y, newX, newY))
     }
     
     // down
     if (x < node.state.count - 1) {
-        var copyState = node.state;
+        copyState = node.state;
         let newX = x + 1
         let newY = y
-        
-        // swap new position
-        copyState[x][y] = copyState[newX][newY]
-        copyState[newX][newY] = 0
-        
-        // create child
-        let child = Node(state: copyState, parent: node, zeroRow: newX, zeroCol: newY, cost: node.cost + 1, heuristic: manhattan(copyState))
-        children.append(child)
+       children.append(childFactory(state: &copyState, parent: node, x, y, newX, newY))
     }
     
     // left
     if (y > 0) {
-        var copyState = node.state;
+        copyState = node.state;
         let newX = x
         let newY = y - 1
-        
-        // swap new position
-        copyState[x][y] = copyState[newX][newY]
-        copyState[newX][newY] = 0
-        
-        // create child
-        let child = Node(state: copyState, parent: node, zeroRow: newX, zeroCol: newY, cost: node.cost + 1, heuristic: manhattan(copyState))
-        children.append(child)
+        children.append(childFactory(state: &copyState, parent: node, x, y, newX, newY))
     }
     
     // right
     if (y < node.state[0].count - 1) {
-        var copyState = node.state;
+        copyState = node.state;
         let newX = x
         let newY = y + 1
-        
-        // swap new position
-        copyState[x][y] = copyState[newX][newY]
-        copyState[newX][newY] = 0
-        
-        // create child
-        let child = Node(state: copyState, parent: node, zeroRow: newX, zeroCol: newY, cost: node.cost + 1, heuristic: manhattan(copyState))
-        children.append(child)
+        children.append(childFactory(state: &copyState, parent: node, x, y, newX, newY))
     }
     
     return children
 }
 
-var goalNode = Node(state: goalState, parent: nil, zeroRow: 2, zeroCol: 1, cost: 0, heuristic: 0)
-var root = Node(state: startState, parent: nil, zeroRow: 1, zeroCol: 2, cost: 0, heuristic: manhattan(startState))
+
+let (x, y) = findCoordinates(0, in: startState)!
+let (goalX, goalY) = findCoordinates(0, in: goalState)!
+
+var root = Node(state: startState, parent: nil, zeroRow: x, zeroCol: y, cost: 0, heuristic: manhattan(startState))
+var goalNode = Node(state: goalState, parent: nil, zeroRow: goalX, zeroCol: goalY, cost: 0, heuristic: 0)
+
 
 var count = 0;
 
 func execute() {
-    var openList = PriorityQueue(ascending: true, startingValues: [root])
+    var openList = PriorityQueue(queue: [root])
     var closedList = Dictionary<String, Node>()
     
     

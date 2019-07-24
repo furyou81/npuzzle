@@ -17,6 +17,10 @@ class Node: Comparable, Hashable {
     let zeroCol: Int
     let hash: String
     
+    var score: Int {
+        return cost + heuristic
+    }
+    
     init(state: [[Int]], parent: Node?, zeroRow: Int, zeroCol: Int, cost: Int, heuristic: Int) {
         self.state = state
         self.parent = parent
@@ -32,7 +36,9 @@ class Node: Comparable, Hashable {
         self.hash = h;
     }
     
-    var hashValue: Int { return (Int) (cost + heuristic) }
+    var hashValue: Int {
+        return (Int) (cost + heuristic)
+    }
     
     static func <(lhs: Node, rhs: Node) -> Bool {
         return (lhs.cost + lhs.heuristic) < (rhs.cost + rhs.heuristic)
