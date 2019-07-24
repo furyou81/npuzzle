@@ -25,22 +25,29 @@ class Node {
         self.parent = parent
         self.scoreG = parent == nil ? 0 : parent!.scoreG + 1
         self.state = state
+        
+       /* for (rowIndex, _) in self.state.enumerated() {
+            for (colIndex, _) in self.state[rowIndex].enumerated() {
+                if (self.state[rowIndex][colIndex] != nil) {
+                    hash = hash + String(describing: self.state[rowIndex][colIndex])
+                } else {
+                    hash = hash + "_"
+                }
+                self.flatState.append(self.state[rowIndex][colIndex])
+            }
+        }*/
+        
         for row in state {
             for column in row {
                 if let char = column {
                     hash = hash + String(describing: char)
+                    self.flatState.append(char)
                 } else {
                     hash = hash + "_"
+                    self.flatState.append(nil)
                 }
             }
         }
-        self.flatState = state.flatMap({
-            $0
-        })
-    }
-    
-    func addChild(_ child: Node) {
-        self.children.append(child)
     }
     
     func findPossibleState() -> [[[Int?]]] {

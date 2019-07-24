@@ -45,6 +45,13 @@ let mockInitialState5 = [
     [13, 8, 2, 15]
 ]
 
+let test = [
+    [13, 9, 11, 10],
+    [5, 1, 4, 3],
+    [15, 14, 7, nil],
+    [6, 2, 12, 8]
+]
+
 let easy = [
     [1, 2, 3, 4],
     [12, nil, 13, 5],
@@ -73,6 +80,12 @@ let medium2 = [
     [5, 6, 9, 1]
 ]
 
+let trentehuitmoves = [
+    [3, 13, 4, 5],
+    [14, 8, nil, 6],
+    [2, 15, 7, 9],
+    [12, 10, 11, 1]
+]
 
 let mockInitialState3 = [
     [4, 2, 3, 9, 16],
@@ -140,7 +153,7 @@ let mockInitialState4 = [
 
 let startTime = CFAbsoluteTimeGetCurrent()
 
-let rootNode = Node(state: mockInitialState)
+let rootNode = Node(state: trentehuitmoves)
 
 let engine = Engine(rootNode: rootNode, heuristic: .manhattan)
 engine.execute()

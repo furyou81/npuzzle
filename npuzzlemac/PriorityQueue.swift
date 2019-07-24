@@ -53,7 +53,10 @@ struct PrioriryQueue {
     mutating func swapElement(at firstIndex: Int, with secondIndex: Int) {
         guard firstIndex != secondIndex
             else { return }
-        queue.swapAt(firstIndex, secondIndex)
+        let tmp = queue[firstIndex];
+        queue[firstIndex] = queue[secondIndex]
+        queue[secondIndex] = tmp;
+        //queue.swapAt(firstIndex, secondIndex)
     }
     
   
@@ -90,7 +93,7 @@ struct PrioriryQueue {
     }
     
     
-    mutating func enqueue(node: Node) {
+    mutating func enqueue(node: inout Node) {
         queue.append(node)
         goUp(index: queue.count - 1)
     }
