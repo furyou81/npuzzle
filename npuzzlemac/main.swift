@@ -10,44 +10,44 @@ import Foundation
 
 let mockInitialState0 = [
     [3, 2,],
-    [1, nil],
+    [1, 0],
 ]
 
 let mockInitialState = [
-    [nil, 2, 3],
+    [0, 2, 3],
     [1, 4, 5],
     [8, 7, 6]
 ]
 
 let mockInitialStateb = [
     [4, 2, 3],
-    [6, nil, 5],
+    [6, 0, 5],
     [8, 7, 1]
 ]
 
 let mockInitialStatec = [
     [4, 6, 5],
-    [nil, 2, 1],
+    [0, 2, 1],
     [7, 8, 3]
 ]
 
 let mockInitialState2 = [
     [15, 6, 8, 10],
     [14, 13, 2, 3],
-    [9, 11, nil, 1],
+    [9, 11, 0, 1],
     [4, 7, 12, 5]
 ]
 
 let mockInitialState5 = [
     [14, 12, 10, 9],
     [1, 11, 3, 5],
-    [nil, 7, 4, 6],
+    [0, 7, 4, 6],
     [13, 8, 2, 15]
 ]
 
 let easy = [
     [1, 2, 3, 4],
-    [12, nil, 13, 5],
+    [12, 0, 13, 5],
     [11, 15, 14, 6],
     [10, 9, 8, 7]
 ]
@@ -55,7 +55,7 @@ let easy = [
 let medium = [
     [15, 13, 5, 3],
     [14, 8, 1, 10],
-    [2, 7, nil, 4],
+    [2, 7, 0, 4],
     [6, 9, 12, 11]
 ]
 
@@ -63,20 +63,20 @@ let medium3 = [
     [6, 9, 12, 3],
     [1, 14, 11, 2],
     [7, 4, 8, 15],
-    [nil, 13, 10, 5]
+    [0, 13, 10, 5]
 ]
 
 let medium2 = [
     [7, 8, 4, 10],
     [14, 11, 15, 13],
-    [12, 3, nil, 2],
+    [12, 3, 0, 2],
     [5, 6, 9, 1]
 ]
 
 
 let mockInitialState3 = [
     [4, 2, 3, 9, 16],
-    [1, nil, 5, 10, 17],
+    [1, 0, 5, 10, 17],
     [8, 7, 6, 11, 18],
     [12, 13, 14, 15, 19],
     [20, 21, 22, 23, 24]
@@ -84,7 +84,7 @@ let mockInitialState3 = [
 
 let mockInitialState4 = [
     [4, 2, 3, 9, 16, 25],
-    [1, nil, 5, 10, 17, 26],
+    [1, 0, 5, 10, 17, 26],
     [8, 7, 6, 11, 18, 27],
     [12, 13, 14, 15, 19, 28],
     [20, 21, 22, 23, 24, 29],
@@ -135,12 +135,19 @@ let mockInitialState4 = [
 
 
 
-
+let sec78 = [
+    [3, 13, 4, 5],
+    [14, 8, 0, 6],
+    [2, 15, 7, 9],
+    [12, 10, 11, 1]
+]
 
 
 let startTime = CFAbsoluteTimeGetCurrent()
 
-let rootNode = Node(state: mockInitialState)
+let nilPosition = Node.findNilPosition(state: sec78)
+let scoreH = Node.manhattanHeuristic(state: sec78)
+let rootNode = Node(state: sec78, nilPosition: nilPosition!, scoreH: scoreH)
 
 let engine = Engine(rootNode: rootNode, heuristic: .manhattan)
 engine.execute()
