@@ -11,6 +11,7 @@
 		86A72D5022E8916F00F7B452 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A72D4F22E8916F00F7B452 /* main.swift */; };
 		86A72D5922E892D800F7B452 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A72D5822E892D800F7B452 /* Node.swift */; };
 		86A72D5B22E8EF4400F7B452 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A72D5A22E8EF4400F7B452 /* PriorityQueue.swift */; };
+		FC6DBDE522EC532400580283 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6DBDE422EC532400580283 /* Engine.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +32,7 @@
 		86A72D4F22E8916F00F7B452 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		86A72D5822E892D800F7B452 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		86A72D5A22E8EF4400F7B452 /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
+		FC6DBDE422EC532400580283 /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			isa = PBXGroup;
 			children = (
 				86A72D4F22E8916F00F7B452 /* main.swift */,
+				FC6DBDE422EC532400580283 /* Engine.swift */,
 				86A72D5822E892D800F7B452 /* Node.swift */,
 				86A72D5A22E8EF4400F7B452 /* PriorityQueue.swift */,
 				07F8D6AD22EBCAB9005EAFC9 /* Heuristic.swift */,
@@ -133,6 +136,7 @@
 				86A72D5022E8916F00F7B452 /* main.swift in Sources */,
 				07F8D6AE22EBCAB9005EAFC9 /* Heuristic.swift in Sources */,
 				86A72D5B22E8EF4400F7B452 /* PriorityQueue.swift in Sources */,
+				FC6DBDE522EC532400580283 /* Engine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
