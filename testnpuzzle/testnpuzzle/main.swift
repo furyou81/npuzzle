@@ -8,15 +8,21 @@
 
 import Foundation
 
-
-
-/*var startState = [
+ var startState = [
     [3, 13, 4, 5],
     [14, 8, 0, 6],
     [2, 15, 7, 9],
     [12, 10, 11, 1]
-]*/
-var startState = [
+]
+ 
+ var goalState = [
+ [1, 2, 3, 4],
+ [12, 13, 14, 5],
+ [11, 0, 15, 6],
+ [10, 9, 8, 7]
+ ]
+
+/*var startState = [
     [0, 2, 3],
     [1, 4, 5],
     [8, 7, 6]
@@ -26,18 +32,26 @@ var goalState = [
     [1, 2, 3],
     [8, 0, 4],
     [7, 6, 5]
-]
-
-/*var goalState = [
-    [1, 2, 3, 4],
-    [12, 13, 14, 5],
-    [11, 0, 15, 6],
-    [10, 9, 8, 7]
-]
-*/
+]*/
 
 let SIZE = startState.count - 1;
 let WEIGHT = 1
+let performHeuristic = getHeuristics()
+
+let choosenHeuristic: Heuristic = .MANHATTAN
+
+func storeGoalCoordinates() -> Dictionary<Int, (row: Int, col: Int)> {
+    var storedCoord: Dictionary<Int, (row: Int, col: Int)> = [:]
+    
+    for i in 0...SIZE {
+        for j in 0...SIZE {
+            storedCoord[goalState[i][j]] = (row: i, col: j)
+        }
+    }
+    return storedCoord
+}
+
+let storedGoalCoordinates = storeGoalCoordinates();
 
 func findCoordinates(_ number: Int, in state: [[Int]]) -> (row: Int, col: Int)? {
     for i in 0...SIZE {
@@ -50,50 +64,13 @@ func findCoordinates(_ number: Int, in state: [[Int]]) -> (row: Int, col: Int)? 
     return nil
 }
 
-func manhattan(_ state: [[Int]]) -> Int {
-    var distance = 0
-    for i in 0...SIZE {
-        for j in 0...SIZE {
-            if (state[i][j] == 0) {
-                continue
-            }
-            let (row, col) = findCoordinates(state[i][j], in: goalState)!
-            
-            let absRow = abs(i - row)
-            let absCol = abs(j - col)
-            
-            distance += (absRow + absCol)
-            // print("New coord in goal:: row-> ", row, "  col-> ", col, "value: ", state[i][j], "absRow  \(absRow)  absCol \(absCol)   moveToGoal: \(absRow + absCol)  total: \(distance)")
-        }
-    }
-    return distance;
-}
-
-func euclidean(_ state: [[Int]]) -> Int {
-    // p = (p1, p2) and q = (q1, q2)
-    var distance = 0.0
-    for i in 0...SIZE {
-        for j in 0...SIZE {
-            if (state[i][j] == 0) {
-                continue
-            }
-            let (row, col) = findCoordinates(state[i][j], in: goalState)!
-            
-            distance += sqrt(pow((Double(row - i)), 2) + pow((Double(col - j)), 2))
-            print("New coord in goal:: row-> ", row, "  col-> ", col, "value: ", state[i][j], "absRow  \(pow((Double(row - i)), 2))  absCol \(pow((Double(col - j)), 2))  total: \(distance)")
-        }
-    }
-    print("SQRT: ", distance)
-    return Int(sqrt(distance));
-}
-
 func childFactory(state: inout [[Int]], parent node: Node, _ x: Int, _ y: Int, _ newX: Int, _ newY: Int) -> Node{
     // swap new position
     state[x][y] = state[newX][newY]
     state[newX][newY] = 0
     
     // create child
-    let child = Node(state: state, parent: node, zeroRow: newX, zeroCol: newY, cost: node.cost + 1, heuristic: euclidean(state) * WEIGHT)
+    let child = Node(state: state, parent: node, zeroRow: newX, zeroCol: newY, cost: node.cost + 1, heuristic: performHeuristic[choosenHeuristic]!(state) * WEIGHT)
     return child
 }
 
@@ -142,13 +119,10 @@ func getChildren(_ node: Node) -> [Node] {
 
 
 let (x, y) = findCoordinates(0, in: startState)!
-let (goalX, goalY) = findCoordinates(0, in: goalState)!
+let (goalX, goalY) = storedGoalCoordinates[0]!
 
-var root = Node(state: startState, parent: nil, zeroRow: x, zeroCol: y, cost: 0, heuristic: euclidean(startState) * WEIGHT)
-var goalNode = Node(state: goalState, parent: nil, zeroRow: goalX, zeroCol: goalY, cost: 0, heuristic: 0)
-
-//print(root.flatState)
-//print(goalNode.flatState)
+var root = Node(state: startState, parent: nil, zeroRow: x, zeroCol: y, cost: 0, heuristic: performHeuristic[choosenHeuristic]!(startState) * WEIGHT)
+var goalNode = Node(state: goalState, parent: nil, zeroRow: goalX, zeroCol: goalY, cost: 0)
 
 var count = 0;
 
@@ -160,7 +134,6 @@ func execute() {
         let currentNode = openList.pop()
         let children = getChildren(currentNode!)
         
-        // let children = oldGetChildren(current: currentNode!)
         closedList[currentNode!.hash] = currentNode
         
         for child in children {
@@ -183,43 +156,6 @@ func execute() {
         }
     }
 }
-
-
-
-// ###############################    OLD
-func oldGetChildren(current: Node) -> [Node] {
-    var children: [Node] = [];
-    
-    let states = current.findPossibleState()
-    
-    for (childIndex, _) in states.enumerated() {
-        children.append(Node(state: states[childIndex], parent: current, zeroRow: -1, zeroCol: -1, cost: current.cost + 1, heuristic: manhattan(states[childIndex])))
-    }
-    return children
-}
-
-
-// ##########################  OLD
-func oldManhattanHeuristic(node: Node) -> Int{
-    var manhattanDistances = 0
-    for y in 0...SIZE {
-        for x in 0...SIZE {
-            if node.state[y][x] != 0 && node.state[y][x] != goalNode.state[y][x] {
-                let currentIndex = node.flatState.index(where: {$0 == node.state[y][x]})
-                let goalIndex = goalNode.flatState.index(where: {$0 == node.state[y][x]})
-                
-                let h = abs(currentIndex! / SIZE - goalIndex! / SIZE)
-                let w = abs(currentIndex! % SIZE - goalIndex! % SIZE)
-                
-                
-                manhattanDistances = manhattanDistances + h + w
-                print("Old coord in goal:: currentIndex-> ", currentIndex!, "  goalIndex-> ", goalIndex!, "value: ", node.state[y][x], "absRow  \(h)  absCol \(w)   moveToGoal: \(h + w)  total: \(manhattanDistances)")
-            }
-        }
-    }
-    return manhattanDistances
-}
-
 
 let startTime = CFAbsoluteTimeGetCurrent()
 print("started")
