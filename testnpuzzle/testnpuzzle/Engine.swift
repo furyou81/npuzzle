@@ -70,6 +70,7 @@ class Engine {
             }
             x = x + 1
         }
+        print(goal)
         return goal
     }
     
@@ -149,7 +150,6 @@ class Engine {
     }
     
     func execute() {
-        
         switch choosenAlgorithm {
         case .ASTAR:
             executeAstar()
@@ -166,7 +166,6 @@ class Engine {
         let goalNode = Node(state: goalState!, parent: nil, zeroRow: goalX, zeroCol: goalY, cost: 0)
         var openList = PriorityQueue(queue: [root])
         var closedList = Dictionary<String, Node>()
-        
         while (!openList.isEmpty) {
             let currentNode = openList.pop()
             let children = getChildren(currentNode!)
