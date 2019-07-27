@@ -70,7 +70,6 @@ class Engine {
             }
             x = x + 1
         }
-        print(goal)
         return goal
     }
     
