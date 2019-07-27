@@ -52,22 +52,23 @@ class Node: Comparable, Hashable {
     
     func draw() {
         var nb = 0;
-        var current = self
-        while current.parent != nil {
+        var current: Node? = self
+        while current != nil {
             
             var drawing: String = ""
-            print("move \(nb): ")
-            for row in current.state {
+            print("move \(nb): scoreF \(current!.score) G \(current!.cost) H \(current!.heuristic)")
+            for row in current!.state {
                 for column in row {
                     drawing = drawing + String(describing: column) + " "
                 }
                 drawing = drawing + "\n"
             }
-
+            
             print(drawing)
             
-            current = current.parent!
+            current = current!.parent
             nb = nb + 1
         }
+        
     }
 }

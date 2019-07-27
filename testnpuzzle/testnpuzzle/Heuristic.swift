@@ -12,6 +12,7 @@ enum Heuristic {
     case MANHATTAN
     case MISSPLACED
     case EUCLIDEAN
+    case UNIFORM_COST
 }
 
 func manhattan(_ state: [[Int]]) -> Int {
@@ -47,7 +48,7 @@ func missplaced(_ state: [[Int]]) -> Int{
 
 func euclidean(_ state: [[Int]]) -> Int {
     // p = (p1, p2) and q = (q1, q2)
-    var heuristic = 0.0
+    var distance = 0
     for i in 0...SIZE {
         for j in 0...SIZE {
             if (state[i][j] == 0) {
@@ -55,12 +56,15 @@ func euclidean(_ state: [[Int]]) -> Int {
             }
             let (row, col) = findCoordinates(state[i][j], in: goalState)!
             
-            heuristic += sqrt(pow((Double(row - i)), 2) + pow((Double(col - j)), 2))
-            print("New coord in goal:: row-> ", row, "  col-> ", col, "value: ", state[i][j], "absRow  \(pow((Double(row - i)), 2))  absCol \(pow((Double(col - j)), 2))  total: \(heuristic)")
+            distance += max(abs(row - i), abs(col - j))
+            print("New coord in goal:: row-> ", row, "  col-> ", col, "value: ", state[i][j], "absRow  \(abs(row - i))  absCol \(abs(col - j))  total: \(distance)")
         }
     }
-    print("SQRT: ", heuristic)
-    return Int(sqrt(heuristic));
+    return distance;
+}
+
+func uniformCost(_ state: [[Int]]) -> Int {
+    return 0;
 }
 
 
@@ -68,5 +72,7 @@ func getHeuristics() -> Dictionary<Heuristic, ([[Int]]) -> Int> {
     var heuristicsAvailable: Dictionary<Heuristic, ([[Int]]) -> Int> = [:]
     heuristicsAvailable[.MANHATTAN] = manhattan
     heuristicsAvailable[.MISSPLACED] = missplaced
+    heuristicsAvailable[.EUCLIDEAN] = euclidean
+    heuristicsAvailable[.UNIFORM_COST] = uniformCost
     return heuristicsAvailable
 }
