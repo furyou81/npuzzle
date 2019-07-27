@@ -1,21 +1,21 @@
 //
-//  PriorityQueue.swift
-//  npuzzlemac
+//  PrQueue.swift
+//  testnpuzzle
 //
-//  Created by Leo-taro FUJIMOTO on 7/23/19.
-//  Copyright © 2019 Leo-taro FUJIMOTO. All rights reserved.
+//  Created by Eric MERABET on 7/24/19.
+//  Copyright © 2019 Eric MERABET. All rights reserved.
 //
 
 import Foundation
 
-struct PrioriryQueue {
+struct PriorityQueue {
     var queue: [Node] = []
     
-    var queueInt: [Int] {
+   /* var queueInt: [Int] {
         return queue.flatMap({
             $0.scoreF
-            })
-    }
+        })
+    }*/
     
     var isEmpty : Bool {
         return queue.isEmpty
@@ -47,19 +47,16 @@ struct PrioriryQueue {
     
     // lower score = higher priority
     func isHigherPriority(at firstIndex: Int, than secondIndex: Int) -> Bool {
-        return queue[firstIndex].scoreF < queue[secondIndex].scoreF
+        return queue[firstIndex].score < queue[secondIndex].score
     }
     
     mutating func swapElement(at firstIndex: Int, with secondIndex: Int) {
         guard firstIndex != secondIndex
             else { return }
-        let tmp = queue[firstIndex];
-        queue[firstIndex] = queue[secondIndex]
-        queue[secondIndex] = tmp;
-        //queue.swapAt(firstIndex, secondIndex)
+        queue.swapAt(firstIndex, secondIndex)
     }
     
-  
+    
     
     mutating func goUp(index: Int) {
         let parentInd = parentIndex(of: index)
@@ -93,9 +90,26 @@ struct PrioriryQueue {
     }
     
     
-    mutating func enqueue(node: inout Node) {
+    mutating func enqueue(node: Node) {
         queue.append(node)
         goUp(index: queue.count - 1)
+    }
+    
+    mutating func push(_ node: Node) {
+        queue.append(node)
+        goUp(index: queue.count - 1)
+    }
+    
+    mutating func pop() -> Node? {
+        
+        guard !isEmpty
+            else {return nil}
+        swapElement(at: 0, with: queue.count - 1)
+        let node = queue.removeLast()
+        if !isEmpty {
+            goDown(index: 0)
+        }
+        return node
     }
     
     mutating func dequeue() -> Node? {
