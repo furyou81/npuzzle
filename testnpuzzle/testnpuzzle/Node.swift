@@ -42,12 +42,57 @@ class Node: Comparable, Hashable {
         return (Int) (cost + heuristic)
     }
     
-    static func <(lhs: Node, rhs: Node) -> Bool {
-        return (lhs.cost + lhs.heuristic) < (rhs.cost + rhs.heuristic)
+    private func childFactory(state: inout [[Int]], _ x: Int, _ y: Int, _ newX: Int, _ newY: Int, _ weight: Int, _ fnCalculHeuristic: ([[Int]]) -> Int) -> Node {
+        // swap new position
+        state[x][y] = state[newX][newY]
+        state[newX][newY] = 0
+        
+        // create child
+        let child = Node(state: state, parent: self, zeroRow: newX, zeroCol: newY, cost: self.cost + 1, heuristic: fnCalculHeuristic(state) * weight)
+        return child
     }
     
-    static func ==(lhs: Node, rhs: Node) -> Bool {
-        return lhs.hash == rhs.hash
+    func getChildren(weight: Int, fnCalculHeuristic: @escaping ([[Int]]) -> Int) -> [Node] {
+        var children:[Node] = []
+        
+        let x = self.zeroRow
+        let y = self.zeroCol
+        
+        var copyState: [[Int]];
+        
+        // Check if we can go up
+        if (x > 0) {
+            copyState = self.state;
+            let newX = x - 1
+            let newY = y
+            children.append(childFactory(state: &copyState, x, y, newX, newY, weight, fnCalculHeuristic))
+        }
+        
+        // down
+        if (x < self.state.count - 1) {
+            copyState = self.state;
+            let newX = x + 1
+            let newY = y
+            children.append(childFactory(state: &copyState, x, y, newX, newY, weight, fnCalculHeuristic))
+        }
+        
+        // left
+        if (y > 0) {
+            copyState = self.state;
+            let newX = x
+            let newY = y - 1
+            children.append(childFactory(state: &copyState, x, y, newX, newY, weight, fnCalculHeuristic))
+        }
+        
+        // right
+        if (y < self.state[0].count - 1) {
+            copyState = self.state;
+            let newX = x
+            let newY = y + 1
+            children.append(childFactory(state: &copyState, x, y, newX, newY, weight, fnCalculHeuristic))
+        }
+        
+        return children
     }
     
     func draw() {
@@ -56,7 +101,7 @@ class Node: Comparable, Hashable {
         while current != nil {
             
             var drawing: String = ""
-            print("move \(nb): scoreF \(current!.score) G \(current!.cost) H \(current!.heuristic)")
+            print("\u{001B}[0;33mmove \(nb): scoreF \(current!.score) G \(current!.cost) H \(current!.heuristic)")
             for row in current!.state {
                 for column in row {
                     drawing = drawing + String(describing: column) + " "
@@ -69,6 +114,13 @@ class Node: Comparable, Hashable {
             current = current!.parent
             nb = nb + 1
         }
-        
+    }
+    
+    static func <(lhs: Node, rhs: Node) -> Bool {
+        return (lhs.cost + lhs.heuristic) < (rhs.cost + rhs.heuristic)
+    }
+    
+    static func ==(lhs: Node, rhs: Node) -> Bool {
+        return lhs.hash == rhs.hash
     }
 }
