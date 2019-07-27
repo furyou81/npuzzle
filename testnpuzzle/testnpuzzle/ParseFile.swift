@@ -5,13 +5,10 @@
 //  Created by Leo-taro FUJIMOTO on 7/27/19.
 //  Copyright © 2019 Eric MERABET. All rights reserved.
 //
-
 import Foundation
-
 enum ParseError: Error {
     case parseError(String)
 }
-
 class ParseFile {
     var filePaths: [String] = []
     let path: String
@@ -36,7 +33,7 @@ class ParseFile {
         }
     }
     
-    func parseState(fileName: String, directoryPath: String = Bundle.main.resourcePath! + "/input_files") throws -> [[Int]]? {
+    func parseState(fileName: String, directoryPath: String = Bundle.main.resourcePath! + "/input_files") throws -> [[Int]] {
         var state: [[Int]] = []
         var size: Int? = nil
         var containsZero: Bool = false
@@ -98,7 +95,6 @@ class ParseFile {
                         throw ParseError.parseError("Invalid number of numbers in line")
                     }
                 }
-                
             }
             if state.count != size! || !containsZero {
                 throw ParseError.parseError("Do not contains 0 or wrong line numbers")
@@ -107,10 +103,8 @@ class ParseFile {
         catch ParseError.parseError(let error){
             throw ParseError.parseError(error)
         }
-        catch {
-            throw ParseError.parseError("WRONG FILE")
+        catch {throw ParseError.parseError("WRONG FILE")
         }
-        
         return state;
     }
 }

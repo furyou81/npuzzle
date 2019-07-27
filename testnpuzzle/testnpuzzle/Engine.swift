@@ -25,10 +25,10 @@ class Engine {
 
     var count = 0
     
-    init(startState: [[Int]], goalState: [[Int]], storedGoalCoordinates: Dictionary<Int, (row: Int, col: Int)>, choosenHeuristic: Heuristic, choosenAlgorithm: Algorithm, WEIGHT: Int = 1) {
+    init(startState: [[Int]], goalState: [[Int]], storedGoalCoordinates: Dictionary<Int, (row: Int, col: Int)>, choosenHeuristic: Heuristic, choosenAlgorithm: Algorithm, weight: Int = 1) {
         self.startState = startState
-        self.SIZE = startState.count - 1
-        self.WEIGHT = WEIGHT
+        self.size = startState.count - 1
+        self.weight = weight
         self.choosenHeuristic = choosenHeuristic
         self.choosenAlgorithm = choosenAlgorithm
         self.goalState = goalState
