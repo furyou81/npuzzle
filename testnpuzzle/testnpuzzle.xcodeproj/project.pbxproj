@@ -12,6 +12,10 @@
 		86A72D5922E892D800F7B452 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A72D5822E892D800F7B452 /* Node.swift */; };
 		86A72D5B22E8EF4400F7B452 /* PriorityQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A72D5A22E8EF4400F7B452 /* PriorityQueue.swift */; };
 		FC6DBDE522EC532400580283 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6DBDE422EC532400580283 /* Engine.swift */; };
+		FC6DBDE722EC5D6300580283 /* ParseFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6DBDE622EC5D6300580283 /* ParseFile.swift */; };
+		FC6DBDED22EC5E1C00580283 /* npuzzle-3-1.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = FC6DBDE922EC5D9E00580283 /* npuzzle-3-1.txt */; };
+		FC6DBDEE22EC5E1C00580283 /* npuzzle-4-1.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = FC6DBDEA22EC5DB500580283 /* npuzzle-4-1.txt */; };
+		FC6DBDEF22EC5E1C00580283 /* npuzzle-4-1b.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = FC6DBDEB22EC5DCA00580283 /* npuzzle-4-1b.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,6 +28,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		FC6DBDEC22EC5E0200580283 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = input_files;
+			dstSubfolderSpec = 7;
+			files = (
+				FC6DBDED22EC5E1C00580283 /* npuzzle-3-1.txt in CopyFiles */,
+				FC6DBDEE22EC5E1C00580283 /* npuzzle-4-1.txt in CopyFiles */,
+				FC6DBDEF22EC5E1C00580283 /* npuzzle-4-1b.txt in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +49,10 @@
 		86A72D5822E892D800F7B452 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		86A72D5A22E8EF4400F7B452 /* PriorityQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityQueue.swift; sourceTree = "<group>"; };
 		FC6DBDE422EC532400580283 /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
+		FC6DBDE622EC5D6300580283 /* ParseFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParseFile.swift; sourceTree = "<group>"; };
+		FC6DBDE922EC5D9E00580283 /* npuzzle-3-1.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "npuzzle-3-1.txt"; sourceTree = "<group>"; };
+		FC6DBDEA22EC5DB500580283 /* npuzzle-4-1.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "npuzzle-4-1.txt"; sourceTree = "<group>"; };
+		FC6DBDEB22EC5DCA00580283 /* npuzzle-4-1b.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "npuzzle-4-1b.txt"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,13 +85,25 @@
 		86A72D4E22E8916F00F7B452 /* testnpuzzle */ = {
 			isa = PBXGroup;
 			children = (
+				FC6DBDE822EC5D8600580283 /* Resources */,
 				86A72D4F22E8916F00F7B452 /* main.swift */,
 				FC6DBDE422EC532400580283 /* Engine.swift */,
+				FC6DBDE622EC5D6300580283 /* ParseFile.swift */,
 				86A72D5822E892D800F7B452 /* Node.swift */,
 				86A72D5A22E8EF4400F7B452 /* PriorityQueue.swift */,
 				07F8D6AD22EBCAB9005EAFC9 /* Heuristic.swift */,
 			);
 			path = testnpuzzle;
+			sourceTree = "<group>";
+		};
+		FC6DBDE822EC5D8600580283 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				FC6DBDE922EC5D9E00580283 /* npuzzle-3-1.txt */,
+				FC6DBDEA22EC5DB500580283 /* npuzzle-4-1.txt */,
+				FC6DBDEB22EC5DCA00580283 /* npuzzle-4-1b.txt */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -84,6 +116,7 @@
 				86A72D4822E8916F00F7B452 /* Sources */,
 				86A72D4922E8916F00F7B452 /* Frameworks */,
 				86A72D4A22E8916F00F7B452 /* CopyFiles */,
+				FC6DBDEC22EC5E0200580283 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -135,6 +168,7 @@
 				86A72D5922E892D800F7B452 /* Node.swift in Sources */,
 				86A72D5022E8916F00F7B452 /* main.swift in Sources */,
 				07F8D6AE22EBCAB9005EAFC9 /* Heuristic.swift in Sources */,
+				FC6DBDE722EC5D6300580283 /* ParseFile.swift in Sources */,
 				86A72D5B22E8EF4400F7B452 /* PriorityQueue.swift in Sources */,
 				FC6DBDE522EC532400580283 /* Engine.swift in Sources */,
 			);

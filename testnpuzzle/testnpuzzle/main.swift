@@ -249,12 +249,19 @@ var goalState = [
 //    }
 //}
 
-let engine = Engine(startState: startState, choosenHeuristic: .MANHATTAN, choosenAlgorithm: .ASTAR)
+let parseFile = ParseFile()
+let fileList = parseFile.filePaths
+
+print(fileList)
+
+parseFile.printFile(fileName: fileList[0])
+
+let engine = Engine(startState: startState, choosenHeuristic: .MANHATTAN, choosenAlgorithm: .GREEDY)
 
 let startTime = CFAbsoluteTimeGetCurrent()
 print("started")
 
-engine.execute()
+//engine.execute()
 
 let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
 print("Time elapsed for : \(timeElapsed) s.")

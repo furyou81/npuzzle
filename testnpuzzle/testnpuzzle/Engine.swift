@@ -34,7 +34,7 @@ class Engine {
         self.choosenAlgorithm = choosenAlgorithm
         self.goalState = findGoal()
         self.storedGoalCoordinates = storeGoalCoordinates()
-        self.performHeuristic = getHeuristics(SIZE: startState.count - 1, goalState: self.goalState!, storedGoalCoordinates: self.storedGoalCoordinates!)
+        self.performHeuristic = getHeuristics(SIZE: self.SIZE, goalState: self.goalState!, storedGoalCoordinates: self.storedGoalCoordinates!)
     }
     
     private func findGoal() -> [[Int]] {
