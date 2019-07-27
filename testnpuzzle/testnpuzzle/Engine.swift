@@ -16,7 +16,7 @@ enum Algorithm {
 class Engine {
     let startState: [[Int]]
     let SIZE: Int
-    let WEIGHT: Int = 1
+    let WEIGHT: Int // weight of the heuristic
     var performHeuristic: Dictionary<Heuristic, ([[Int]]) -> Int>?
     
     let choosenHeuristic: Heuristic
@@ -26,9 +26,10 @@ class Engine {
     
     var count = 0
     
-    init(startState: [[Int]], choosenHeuristic: Heuristic, choosenAlgorithm: Algorithm) {
+    init(startState: [[Int]], choosenHeuristic: Heuristic, choosenAlgorithm: Algorithm, WEIGHT: Int = 1) {
         self.startState = startState
         self.SIZE = startState.count - 1
+        self.WEIGHT = WEIGHT
         self.choosenHeuristic = choosenHeuristic
         self.choosenAlgorithm = choosenAlgorithm
         self.goalState = findGoal()
