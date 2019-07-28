@@ -26,6 +26,9 @@ var argsAlgo: Algorithm = Algorithm.ASTAR
 var argsHeuri: Heuristic = Heuristic.MANHATTAN
 var argsWeight: Int = 1
 var path: String = ""
+var randomlyGenerated: Bool = false
+var choosenSize = 3
+var solvable = true
 
 let nbArgs = CommandLine.arguments.count
 var skip: Bool = false
@@ -100,19 +103,42 @@ func parseArgs() {
             }
             skip = true
             continue
+        case "-s":
+            if index + 1 < nbArgs {
+                if let w = Int(CommandLine.arguments[index + 1]) {
+                    if w > 0 {
+                        choosenSize = w
+                    } else {
+                        print("the size must be a positive integer")
+                        error = true
+                    }
+                } else {
+                    print("the size must be a positive integer")
+                    error = true
+                }
+            } else {
+                print("if you put the -s flag, you need to specify a size which should be a positive integer")
+                error = true
+            }
+            skip = true
+            continue
+        case "-u":
+            print("USAGE: filePath [-a astar, uniform or greedy] [-h misplaced, euclidean or manhattan] [-s size as integer] [-unsolvable]")
+            exit(0)
+        case "-unsolvable":
+            solvable = false
+            continue
         default:
             if path == "" {
                 path = argument
             } else {
-                print("USAGE: filePath [-a astar, uniform or greedy] [-h misplaced, euclidean or manhattan]")
+                print("USAGE: filePath [-a astar, uniform or greedy] [-h misplaced, euclidean or manhattan] [-s size as integer] [-unsolvable]")
                 error = true
             }
         }
     }
     
     if path == "" {
-        print("you must specify a file path")
-        print("USAGE: filePath [-a astar, uniform or greedy] [-h misplaced, euclidean or manhattan]")
-        error = true
+        randomlyGenerated = true
     }
 }

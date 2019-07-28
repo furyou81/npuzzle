@@ -21,6 +21,9 @@
 		FC6DBDED22EC5E1C00580283 /* npuzzle-3-1.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = FC6DBDE922EC5D9E00580283 /* npuzzle-3-1.txt */; };
 		FC6DBDEE22EC5E1C00580283 /* npuzzle-4-1.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = FC6DBDEA22EC5DB500580283 /* npuzzle-4-1.txt */; };
 		FC6DBDEF22EC5E1C00580283 /* npuzzle-4-1b.txt in CopyFiles */ = {isa = PBXBuildFile; fileRef = FC6DBDEB22EC5DCA00580283 /* npuzzle-4-1b.txt */; };
+		FCFAA6F622EDCEB0006806CF /* Solvability.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFAA6F522EDCEB0006806CF /* Solvability.swift */; };
+		FCFAA6F822EDCF03006806CF /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFAA6F722EDCF03006806CF /* Generator.swift */; };
+		FCFAA6FA22EDD6A9006806CF /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFAA6F922EDD6A9006806CF /* Goal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -63,6 +66,9 @@
 		FC6DBDE922EC5D9E00580283 /* npuzzle-3-1.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "npuzzle-3-1.txt"; sourceTree = "<group>"; };
 		FC6DBDEA22EC5DB500580283 /* npuzzle-4-1.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "npuzzle-4-1.txt"; sourceTree = "<group>"; };
 		FC6DBDEB22EC5DCA00580283 /* npuzzle-4-1b.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "npuzzle-4-1b.txt"; sourceTree = "<group>"; };
+		FCFAA6F522EDCEB0006806CF /* Solvability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solvability.swift; sourceTree = "<group>"; };
+		FCFAA6F722EDCF03006806CF /* Generator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
+		FCFAA6F922EDD6A9006806CF /* Goal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +104,9 @@
 				86FFB3C622EC7FA400DECA4B /* Algo */,
 				FC6DBDE822EC5D8600580283 /* Resources */,
 				86A72D4F22E8916F00F7B452 /* main.swift */,
+				FCFAA6F522EDCEB0006806CF /* Solvability.swift */,
+				FCFAA6F922EDD6A9006806CF /* Goal.swift */,
+				FCFAA6F722EDCF03006806CF /* Generator.swift */,
 				FC6DBDE422EC532400580283 /* Engine.swift */,
 				FC6DBDE622EC5D6300580283 /* ParseFile.swift */,
 				86A72D5822E892D800F7B452 /* Node.swift */,
@@ -194,11 +203,14 @@
 				86FFB3D022EC9F4700DECA4B /* SearchPath.swift in Sources */,
 				86FFB3CA22EC7FC900DECA4B /* Astar.swift in Sources */,
 				86A72D5022E8916F00F7B452 /* main.swift in Sources */,
+				FCFAA6FA22EDD6A9006806CF /* Goal.swift in Sources */,
 				07F8D6AE22EBCAB9005EAFC9 /* Heuristic.swift in Sources */,
 				FC6DBDE722EC5D6300580283 /* ParseFile.swift in Sources */,
 				86A72D5B22E8EF4400F7B452 /* PriorityQueue.swift in Sources */,
 				86FFB3C822EC7FB900DECA4B /* Greedy.swift in Sources */,
+				FCFAA6F622EDCEB0006806CF /* Solvability.swift in Sources */,
 				FC6DBDE522EC532400580283 /* Engine.swift in Sources */,
+				FCFAA6F822EDCF03006806CF /* Generator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
