@@ -8,7 +8,8 @@
 
 import Foundation
 
-parseArgs()
+//parseArgs()
+
 
 private func findGoal(startingState: [[Int]], size: Int) -> [[Int]] {
     var goal: [[Int]] = startingState
@@ -102,3 +103,34 @@ if !error {
         print("WRONG PATH")
     }
 }
+
+func bypassParsing() {
+    
+    let state = [
+        [0, 2, 3],
+        [1, 4, 5],
+        [8, 7, 6]
+    ]
+    
+    let size = state.count - 1
+    let goalState = [
+        [1, 2, 3],
+        [8, 0, 4],
+        [7, 6, 5],
+    ]
+    let storedGoalCoordinates = storeGoalCoordinates(goalState: goalState, size: size)
+    
+    
+    
+    let engine = Engine(startState: state, goalState: goalState, storedGoalCoordinates: storedGoalCoordinates, choosenHeuristic: .XY, choosenAlgorithm: .ASTAR)
+    
+    let startTime = CFAbsoluteTimeGetCurrent()
+    print("started")
+    
+    engine.execute()
+    
+    let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+    print("Time elapsed for : \(timeElapsed) s.")
+}
+
+bypassParsing()

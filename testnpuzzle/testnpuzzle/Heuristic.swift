@@ -13,6 +13,7 @@ enum Heuristic {
     case MISSPLACED
     case EUCLIDEAN
     case UNIFORM_COST
+    case XY
 }
 
 func manhattan(size: Int, storedGoalCoordinates: Dictionary<Int, (row: Int, col: Int)>) -> (_ state: [[Int]]) -> Int {
@@ -74,11 +75,106 @@ func uniformCost(_ state: [[Int]]) -> Int {
 }
 
 
+func xy(size: Int, storedGoalCoordinates: Dictionary<Int, (row: Int, col: Int)>) -> (_ state: [[Int]]) -> Int {
+    return { state in
+        var heuristic = 0
+        
+        var (zeroRowPosition, zeroColPosition) = state.findCoordinates(0, size: size)!
+        var copyState = state
+        var count = 0
+        var isFinished = true
+        
+        repeat {
+            isFinished = true
+            for var i in 0...size {
+                for var j in 0...size {
+                    
+                    if copyState[i][j] == 0 {
+                        continue
+                    }
+                    
+                    // La valeur est sur la bonne ligne
+                    if storedGoalCoordinates[copyState[i][j]]?.row == i {
+                        continue
+                    }
+                    
+                 /*   let (row, _) = copyState.findCoordinates(copyState[i][j], size: size)!
+                    if row == i {
+                        continue
+                    }*/
+                    
+                    // le zero est a une position adjacente
+                    if (i + 1 == zeroRowPosition || i - 1 == zeroRowPosition) {
+                        let tmp = copyState[i][j]
+                        copyState[i][j] = copyState[zeroRowPosition][zeroColPosition]
+                        copyState[zeroRowPosition][zeroColPosition] = tmp
+                        
+                        count = count + 1
+                        zeroColPosition = j// La nouvelle position de zero dans le state
+                        zeroRowPosition = i
+                        isFinished = false
+                        i = 0
+                        j = 0
+                    }
+                }
+            }
+        } while (!isFinished)
+        print("XY row == ", count)
+        
+        copyState = state
+        (zeroRowPosition, zeroColPosition) = state.findCoordinates(0, size: size)!
+        repeat {
+            isFinished = true
+            for var i in 0...size {
+                for var j in 0...size {
+                    
+                    var val = copyState[i][j]
+                    var tt = copyState[zeroRowPosition][zeroColPosition]
+                    
+                    if copyState[i][j] == 0 {
+                        continue
+                    }
+                    // La valeur est sur la bonne colonne
+                    if storedGoalCoordinates[copyState[i][j]]?.col == j {
+                        continue
+                    }
+                    
+                    /*let (_, col) = copyState.findCoordinates(state[i][j], size: size)!
+                    if col == j {
+                        continue
+                    }*/
+                    
+                    // le zero est a une position adjacente
+                    if (j + 1 == zeroColPosition || j - 1 == zeroColPosition) {
+                        let tmp = copyState[i][j]
+                        copyState[i][j] = copyState[zeroRowPosition][zeroColPosition]
+                        copyState[zeroRowPosition][zeroColPosition] = tmp
+                        
+                        count = count + 1
+                        zeroColPosition = j// La nouvelle position de zero dans le state
+                        zeroRowPosition = i
+                        isFinished = false
+                        i = 0
+                        j = 0
+                    }
+                    
+                }
+            }
+        } while (!isFinished)
+        
+        print("XY Heuristic == ", count)
+        
+        return heuristic;
+    }
+}
+
+
 func getHeuristics(size: Int, goalState: [[Int]], storedGoalCoordinates: Dictionary<Int, (row: Int, col: Int)>) -> Dictionary<Heuristic, ([[Int]]) -> Int> {
     var heuristicsAvailable: Dictionary<Heuristic, ([[Int]]) -> Int> = [:]
     heuristicsAvailable[.MANHATTAN] = manhattan(size: size, storedGoalCoordinates: storedGoalCoordinates)
     heuristicsAvailable[.MISSPLACED] = missplaced(size: size, goalState: goalState)
     heuristicsAvailable[.EUCLIDEAN] = euclidean(size: size, goalState: goalState)
     heuristicsAvailable[.UNIFORM_COST] = uniformCost
+    heuristicsAvailable[.XY] = xy(size: size, storedGoalCoordinates: storedGoalCoordinates)
     return heuristicsAvailable
 }
