@@ -105,11 +105,11 @@ func parseArgs() {
             continue
         case "-s":
             if index + 1 < nbArgs {
-                if let w = Int(CommandLine.arguments[index + 1]) {
-                    if w > 0 {
-                        choosenSize = w
+                if let s = Int(CommandLine.arguments[index + 1]) {
+                    if s > 1 {
+                        choosenSize = s
                     } else {
-                        print("the size must be a positive integer")
+                        print("the size must be at least 2")
                         error = true
                     }
                 } else {
