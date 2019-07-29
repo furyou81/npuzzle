@@ -9,13 +9,16 @@
 import UIKit
 
 class PuzzleCell: UICollectionViewCell {
-    @IBOutlet weak var valueLabel: UILabel!
+    @IBOutlet weak var image: UIImageView!
     
-    var myValue : (Int)? {
+    var myValue : (name: String, value: Int, size: Int)? {
         didSet {
-            valueLabel.text = String(describing: myValue!)
+            image.image = UIImage(named: "\(myValue!.name)_\(String(describing: myValue!.size))_\(String(describing: myValue!.value))")
+            if myValue!.value == 0 {
+                image.isHighlighted = true
+                image.tintColor = .green
+                image.alpha = 0.35
+            }
         }
     }
-    
-    
 }

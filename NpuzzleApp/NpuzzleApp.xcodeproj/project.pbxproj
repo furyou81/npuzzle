@@ -10,7 +10,6 @@
 		FC5F5B9F22EF10DC00923F3F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5F5B9E22EF10DC00923F3F /* AppDelegate.swift */; };
 		FC5F5BA122EF10DC00923F3F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5F5BA022EF10DC00923F3F /* ViewController.swift */; };
 		FC5F5BA422EF10DC00923F3F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC5F5BA222EF10DC00923F3F /* Main.storyboard */; };
-		FC5F5BA622EF10DC00923F3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC5F5BA522EF10DC00923F3F /* Assets.xcassets */; };
 		FC5F5BA922EF10DC00923F3F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC5F5BA722EF10DC00923F3F /* LaunchScreen.storyboard */; };
 		FC5F5BBA22EF112B00923F3F /* ParseFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5F5BB222EF112B00923F3F /* ParseFile.swift */; };
 		FC5F5BBB22EF112B00923F3F /* Generator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5F5BB322EF112B00923F3F /* Generator.swift */; };
@@ -26,6 +25,7 @@
 		FC5F5BC922EF113600923F3F /* Astar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5F5BC522EF113600923F3F /* Astar.swift */; };
 		FC5F5BCF22EF157400923F3F /* SolveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5F5BCE22EF157400923F3F /* SolveViewController.swift */; };
 		FC5F5BD122EF169300923F3F /* PuzzleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5F5BD022EF169300923F3F /* PuzzleCell.swift */; };
+		FC5F5BD722EF571B00923F3F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC5F5BD622EF571B00923F3F /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,6 @@
 		FC5F5B9E22EF10DC00923F3F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC5F5BA022EF10DC00923F3F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FC5F5BA322EF10DC00923F3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		FC5F5BA522EF10DC00923F3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC5F5BA822EF10DC00923F3F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FC5F5BAA22EF10DC00923F3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC5F5BB222EF112B00923F3F /* ParseFile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseFile.swift; sourceTree = "<group>"; };
@@ -50,6 +49,7 @@
 		FC5F5BC522EF113600923F3F /* Astar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Astar.swift; sourceTree = "<group>"; };
 		FC5F5BCE22EF157400923F3F /* SolveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SolveViewController.swift; sourceTree = "<group>"; };
 		FC5F5BD022EF169300923F3F /* PuzzleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PuzzleCell.swift; sourceTree = "<group>"; };
+		FC5F5BD622EF571B00923F3F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,11 +86,11 @@
 				FC5F5B9E22EF10DC00923F3F /* AppDelegate.swift */,
 				FC5F5BA022EF10DC00923F3F /* ViewController.swift */,
 				FC5F5BA222EF10DC00923F3F /* Main.storyboard */,
-				FC5F5BA522EF10DC00923F3F /* Assets.xcassets */,
 				FC5F5BA722EF10DC00923F3F /* LaunchScreen.storyboard */,
 				FC5F5BAA22EF10DC00923F3F /* Info.plist */,
 				FC5F5BCE22EF157400923F3F /* SolveViewController.swift */,
 				FC5F5BD022EF169300923F3F /* PuzzleCell.swift */,
+				FC5F5BD622EF571B00923F3F /* Assets.xcassets */,
 			);
 			path = NpuzzleApp;
 			sourceTree = "<group>";
@@ -182,7 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC5F5BA922EF10DC00923F3F /* LaunchScreen.storyboard in Resources */,
-				FC5F5BA622EF10DC00923F3F /* Assets.xcassets in Resources */,
+				FC5F5BD722EF571B00923F3F /* Assets.xcassets in Resources */,
 				FC5F5BA422EF10DC00923F3F /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
