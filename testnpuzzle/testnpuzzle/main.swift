@@ -38,6 +38,8 @@ if !error {
         }
     } catch ParseError.parseError(let error){
         print(error)
+    } catch {
+        print("WRONG PATH")
     }
 
 }

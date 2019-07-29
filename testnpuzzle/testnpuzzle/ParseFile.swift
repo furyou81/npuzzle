@@ -41,6 +41,9 @@ class ParseFile {
         
         do {
             let fileContent = try String(contentsOfFile: directoryPath + "/" + fileName, encoding: .utf8)
+            if fileContent == "" {
+                throw ParseError.parseError("Empty file")
+            }
             let lines = fileContent.components(separatedBy: "\n")
             for line in lines {
                 
@@ -59,6 +62,9 @@ class ParseFile {
                         if let num = Int(c) {
                             if size == nil {
                                 size = num
+                                if num < 2 {
+                                    throw ParseError.parseError("Puzzle size must be at least 2")
+                                }
                             } else {
                                 throw ParseError.parseError("Invalid number for size")
                             }
@@ -103,8 +109,8 @@ class ParseFile {
         catch ParseError.parseError(let error){
             throw ParseError.parseError(error)
         }
-        //catch {throw ParseError.parseError("WRONG FILE")
-//        }
+        catch {throw ParseError.parseError("WRONG FILE")
+        }
         return state;
     }
 }
