@@ -103,8 +103,8 @@ class ParseFile {
         catch ParseError.parseError(let error){
             throw ParseError.parseError(error)
         }
-        catch {throw ParseError.parseError("WRONG FILE")
-        }
+        //catch {throw ParseError.parseError("WRONG FILE")
+//        }
         return state;
     }
 }
