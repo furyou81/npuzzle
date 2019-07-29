@@ -38,7 +38,7 @@ class Engine {
     
     
 
-    func execute() {
+    func execute() -> [Move] {
         var strategy: SearchPath?
         switch choosenAlgorithm {
         case .ASTAR:
@@ -46,7 +46,7 @@ class Engine {
         case .GREEDY:
             strategy = GreedyStrategy(startState: startState, goalState: &goalState, weight: weight, self.storedGoalCoordinates, choosenHeuristic: performHeuristic![choosenHeuristic]!)
         }
-        strategy?.execute()
+        return strategy!.execute()
     }
 }
 

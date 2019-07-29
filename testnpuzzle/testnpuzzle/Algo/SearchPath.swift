@@ -8,6 +8,13 @@
 
 import Foundation
 
+enum Move {
+    case UP
+    case DOWN
+    case LEFT
+    case RIGHT
+}
+
 protocol SearchPath {
-    func execute()
+    func execute() -> [Move]
 }

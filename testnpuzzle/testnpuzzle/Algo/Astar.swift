@@ -9,7 +9,7 @@
 import Foundation
 
 class AstarStrategy : Algo, SearchPath {
-    func execute() {
+    func execute() -> [Move] {
         let (x, y) = startState.findCoordinates(0, size: self.size)!
         let (goalX, goalY) = storedGoalCoordinates[0]!
         
@@ -29,10 +29,10 @@ class AstarStrategy : Algo, SearchPath {
                 if (child == goalNode) {
                     closedList[child.hash] = child
                     print("Done")
-                    child.draw()
+                    let moves = child.draw()
                     print("Open list: ", openList.count)
                     print("Close list: ", closedList.count)
-                    return
+                    return moves
                 }
                 
                 if (closedList[child.hash] == nil) {
@@ -43,5 +43,6 @@ class AstarStrategy : Algo, SearchPath {
                 
             }
         }
+        return []
     }
 }

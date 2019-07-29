@@ -95,11 +95,15 @@ class Node: Comparable, Hashable {
         return children
     }
     
-    func draw() {
+    func draw() -> [Move] {
+        var moves: [Move] = []
         var nb = 0;
+        var size = self.state.count - 1
+        var previous: Node? = nil
         var current: Node? = self
+        var lastX = 0
+        var lastY = 0
         while current != nil {
-            
             var drawing: String = ""
             print("\u{001B}[0;33mmove \(nb): scoreF \(current!.score) G \(current!.cost) H \(current!.heuristic)")
             for row in current!.state {
@@ -111,9 +115,25 @@ class Node: Comparable, Hashable {
             
             print(drawing)
             
+            let (curX, curY) = current!.state.findCoordinates(0, size: size)!
+            if nb > 0 {
+                if curX > lastX {
+                    moves.append(.UP)
+                } else if curX < lastX {
+                    moves.append(.DOWN)
+                } else if curY > lastY {
+                    moves.append(.LEFT)
+                } else if curY < lastY {
+                    moves.append(.RIGHT)
+                }
+            }
+            lastX = curX
+            lastY = curY
+            previous = current
             current = current!.parent
             nb = nb + 1
         }
+        return moves.reversed()
     }
     
     static func <(lhs: Node, rhs: Node) -> Bool {
